@@ -1,0 +1,77 @@
+{% extends "main/base.html" %}
+{% block title %}DonateAnyBook | Profile{% endblock %}
+{% block content %}
+
+<div class="bg-white pb-4 px-4 rounded-md w-full">
+      <div class="flex justify-between w-full pt-6 ">
+        <p class="ml-3"> Welcome {{username}}</p>
+      </div>
+      
+    {% if orders %}
+    <section class="text-gray-600 body-font">
+    <div class="flex flex-wrap -m- text-center">
+        <div class="p-2 md:w-1/2 sm:w-1/2 w-full">  
+              <div class="border-2 border-gray-200 px-4 py-6 rounded-lg">
+                  <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"></path>
+                  <circle cx="9" cy="7" r="4"></circle>
+                  <path d="M23 21v-2a4 4 0 00-3-3.87m-4-12a4 4 0 010 7.75"></path>
+                </svg>
+                <h2 class="title-font font-medium text-3xl text-gray-900">{{ orders_count }}</h2>
+                <p class="leading-relaxed">Total Donation Requested</p>
+              </div>
+            </div>
+
+            <div class="p-2 md:w-1/2 sm:w-1/2 w-full">
+              <div class="border-2 border-gray-200 px-4 py-6 rounded-lg">
+                  <path d="M8 17l4 4 4-4m-4-5v9"></path>
+                  <path d="M20.88 18.09A5 5 0 0018 9h-1.26A8 8 0 103 16.29"></path>
+                </svg>
+                <h2 class="title-font font-medium text-3xl text-gray-900">{{ total_books_recived }}</h2>
+                <p class="leading-relaxed">Books Recived</p>
+              </div>
+        </div>
+    </div>
+    </section>
+    <div class="overflow-x-auto mt-6">
+
+      <table class="table-auto border-collapse w-full">
+        <thead>
+          <tr class="rounded-lg text-sm font-medium text-gray-700 text-left" style="font-size: 0.9674rem">
+            <th class="px-4 py-2 bg-gray-200 " style="background-color:#f8f8f8">Book Title</th>
+            <th class="px-4 py-2 " style="background-color:#f8f8f8">Author</th>
+            <th class="px-4 py-2 " style="background-color:#f8f8f8">Pickup Status</th>
+          </tr>
+        </thead>
+        <tbody class="text-sm font-normal text-gray-700">
+        {% for order in orders reversed%}
+          <tr class="hover:bg-gray-100 border-b border-gray-200 py-10">
+            <td class="px-4 py-4">{{order}}</td>
+            <td class="px-4 py-4">{{order.book_author}}</td>
+            {% if order.status %}
+            <td class="px-4 py-4 bg-green-500">Completed</td>
+            {% else %}
+            <td class="px-4 py-4 text-white bg-red-500">Pending</td>
+            {% endif %}
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  	 <div id="pagination" class="w-full flex justify-center border-t border-gray-100 pt-4 items-center">
+
+      </div>
+    </div>
+    {% else %}
+    <p class="text-center text-3xl">You haven't Donated any books</p>
+    {% endif %}
+<style>
+  
+thead tr th:first-child { border-top-left-radius: 10px; border-bottom-left-radius: 10px;}
+thead tr th:last-child { border-top-right-radius: 10px; border-bottom-right-radius: 10px;}
+
+tbody tr td:first-child { border-top-left-radius: 5px; border-bottom-left-radius: 0px;}
+tbody tr td:last-child { border-top-right-radius: 5px; border-bottom-right-radius: 0px;}
+
+
+</style>
+{% endblock %}
